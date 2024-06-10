@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 
-output_file = './reviews.csv'
+output_file = './data.csv'
 url = 'https://www.amazon.com/Garden-Life-Vegetarian-Multivitamin-Supplement/product-reviews/B0032EZOAM/ref=cm_cr_getr_d_paging_btm_prev_1?pageNumber=1&sortBy=recent&reviewerType=avp_only_reviews'
 
 class AmazonScraper:
