@@ -1,4 +1,7 @@
 import re
+import jenkins
+import json
+import os
 import time
 import csv
 from selenium import webdriver
@@ -7,19 +10,29 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 
+
+host = "http://localhost:8080/"
+username = "kalai_vani"
+password = "114f90eafb46ee971e10ec0e284577c055"
+server = jenkins.Jenkins(host, username=username, password=password)
+
+user = server.get_whoami()
+version = server.get_version()
+print('Welcome %s from Jenkins %s' % (user['fullName'], version))
 output_file = './data.csv'
 url = 'https://www.amazon.com/Garden-Life-Vegetarian-Multivitamin-Supplement/product-reviews/B0032EZOAM/ref=cm_cr_getr_d_paging_btm_prev_1?pageNumber=1&sortBy=recent&reviewerType=avp_only_reviews'
 
 class AmazonScraper:
     def __init__(
         self,
-        headless=True,
+        headless=False,
         load_images=False,
         chromedriver_path="./chromedriver.exe",
         window_size=(700, 900)
     ):
         options = webdriver.ChromeOptions()
         if headless:
+            options.add_argument("--headless") 
             options.add_argument("--disable-gpu")
         
         if not load_images:
